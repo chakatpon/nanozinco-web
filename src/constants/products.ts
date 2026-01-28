@@ -1,0 +1,38 @@
+export const products = [
+  {
+    id: '1',
+    name: 'Nano Zinco Premium 30mg',
+    description: 'Premium zinc supplement with nano technology for better absorption',
+    price: 890,
+    stock: 100,
+    category: 'supplements',
+    imageUrl: '/nanozinco_product_1.png',
+  },
+  {
+    id: '2',
+    name: 'Nano Zinco Plus 50mg',
+    description: 'High potency zinc supplement for enhanced immune support',
+    price: 1290,
+    stock: 75,
+    category: 'supplements',
+    imageUrl: '/nanozinco_product_2.png',
+  },
+  {
+    id: '3',
+    name: 'Nano Zinco Kids 15mg',
+    description: 'Gentle zinc formula specially designed for children',
+    price: 590,
+    stock: 120,
+    category: 'supplements',
+    imageUrl: '/nanozinco_product_3.jpg',
+  },
+  {
+    id: '4',
+    name: 'Nano Zinco Family Pack',
+    description: 'Value pack with 3 bottles of 30mg zinc supplement',
+    price: 2390,
+    stock: 50,
+    category: 'bundles',
+    imageUrl: '/nanozinco_product_4.png',
+  },
+];
