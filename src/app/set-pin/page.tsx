@@ -78,7 +78,7 @@ export default function SetPinPage() {
     }
 
     savePin(user.phone, originalPin);
-    router.push('/');
+    router.push('/products');
   };
 
   return (
