@@ -7,7 +7,7 @@ const SENDER_NAME = process.env.NEXT_PUBLIC_OTP_SENDER_NAME || 'NANO-ZINCO';
  * Format phone number to international format
  * Converts Thai phone number (0XXXXXXXXX) to international format (66XXXXXXXXX)
  */
-const formatPhoneNumber = (phone: string | undefined): string => {
+export const formatPhoneNumber = (phone: string | undefined): string => {
   if (!phone) {
     throw new Error('Phone number is required');
   }
