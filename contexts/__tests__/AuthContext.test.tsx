@@ -13,7 +13,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe('AuthContext - TDD Tests', () => {
   beforeEach(() => {
-    localStorage.clear();
+    globalThis.localStorage.clear();
   });
 
   describe('Initial State', () => {
@@ -36,8 +36,8 @@ describe('AuthContext - TDD Tests', () => {
         createdAt: new Date().toISOString(),
       };
 
-      localStorage.setItem('zinco_auth', 'true');
-      localStorage.setItem('zinco_user', JSON.stringify(mockUser));
+      globalThis.localStorage.setItem('zinco_auth', 'true');
+      globalThis.localStorage.setItem('zinco_user', JSON.stringify(mockUser));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -71,8 +71,8 @@ describe('AuthContext - TDD Tests', () => {
 
       expect(result.current.isAuthenticated).toBe(true);
       expect(result.current.user).toEqual(mockUser);
-      expect(localStorage.getItem('zinco_auth')).toBe('true');
-      expect(localStorage.getItem('zinco_user')).toBe(JSON.stringify(mockUser));
+      expect(globalThis.localStorage.getItem('zinco_auth')).toBe('true');
+      expect(globalThis.localStorage.getItem('zinco_user')).toBe(JSON.stringify(mockUser));
     });
 
     it('should save last user info on login', async () => {
@@ -111,8 +111,8 @@ describe('AuthContext - TDD Tests', () => {
         createdAt: new Date().toISOString(),
       };
 
-      localStorage.setItem('zinco_auth', 'true');
-      localStorage.setItem('zinco_user', JSON.stringify(mockUser));
+      globalThis.localStorage.setItem('zinco_auth', 'true');
+      globalThis.localStorage.setItem('zinco_user', JSON.stringify(mockUser));
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 
@@ -126,8 +126,8 @@ describe('AuthContext - TDD Tests', () => {
 
       expect(result.current.isAuthenticated).toBe(false);
       expect(result.current.user).toBeNull();
-      expect(localStorage.getItem('zinco_auth')).toBeNull();
-      expect(localStorage.getItem('zinco_user')).toBeNull();
+      expect(globalThis.localStorage.getItem('zinco_auth')).toBeNull();
+      expect(globalThis.localStorage.getItem('zinco_user')).toBeNull();
     });
 
     it('should keep last user info after logout', async () => {
@@ -254,7 +254,7 @@ describe('AuthContext - TDD Tests', () => {
         result.current.savePin('66812345678', '123456');
       });
 
-      const storedPins = localStorage.getItem('zinco_user_pins');
+      const storedPins = globalThis.localStorage.getItem('zinco_user_pins');
       expect(storedPins).toBeTruthy();
       const parsed = JSON.parse(storedPins!);
       expect(parsed).toEqual([{ phone: '66812345678', pin: '123456' }]);
@@ -333,14 +333,14 @@ describe('AuthContext - TDD Tests', () => {
       });
 
       expect(result.current.lastUser).toBeNull();
-      expect(localStorage.getItem('zinco_last_user')).toBeNull();
+      expect(globalThis.localStorage.getItem('zinco_last_user')).toBeNull();
     });
   });
 
   describe('Edge Cases', () => {
     it('should handle corrupted localStorage data gracefully', async () => {
-      localStorage.setItem('zinco_auth', 'true');
-      localStorage.setItem('zinco_user', 'invalid-json');
+      globalThis.localStorage.setItem('zinco_auth', 'true');
+      globalThis.localStorage.setItem('zinco_user', 'invalid-json');
 
       const { result } = renderHook(() => useAuth(), { wrapper });
 

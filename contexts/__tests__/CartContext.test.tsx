@@ -35,7 +35,7 @@ const mockProduct2: Product = {
 
 describe('CartContext - TDD Tests', () => {
   beforeEach(() => {
-    localStorage.clear();
+    globalThis.localStorage.clear();
   });
 
   describe('Initial State', () => {
@@ -67,7 +67,7 @@ describe('CartContext - TDD Tests', () => {
       const savedCart = [
         { product: mockProduct, quantity: 2 },
       ];
-      localStorage.setItem('zinco_cart', JSON.stringify(savedCart));
+      globalThis.localStorage.setItem('zinco_cart', JSON.stringify(savedCart));
 
       const { result } = renderHook(() => useCart(), { wrapper });
 
@@ -156,7 +156,7 @@ describe('CartContext - TDD Tests', () => {
         result.current.addToCart(mockProduct);
       });
 
-      const stored = localStorage.getItem('zinco_cart');
+      const stored = globalThis.localStorage.getItem('zinco_cart');
       expect(stored).toBeTruthy();
       const parsed = JSON.parse(stored!);
       expect(parsed).toHaveLength(1);
@@ -320,7 +320,7 @@ describe('CartContext - TDD Tests', () => {
         result.current.clearCart();
       });
 
-      const stored = localStorage.getItem('zinco_cart');
+      const stored = globalThis.localStorage.getItem('zinco_cart');
       expect(stored).toBe('[]');
     });
   });
@@ -407,7 +407,7 @@ describe('CartContext - TDD Tests', () => {
 
   describe('Edge Cases', () => {
     it('should handle corrupted localStorage data', async () => {
-      localStorage.setItem('zinco_cart', 'invalid-json');
+      globalThis.localStorage.setItem('zinco_cart', 'invalid-json');
 
       const { result } = renderHook(() => useCart(), { wrapper });
 

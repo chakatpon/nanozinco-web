@@ -12,7 +12,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe('LanguageContext - TDD Tests', () => {
   beforeEach(() => {
-    localStorage.clear();
+    globalThis.localStorage.clear();
   });
 
   describe('Initial State', () => {
@@ -25,7 +25,7 @@ describe('LanguageContext - TDD Tests', () => {
     });
 
     it('should restore language preference from localStorage', async () => {
-      localStorage.setItem('zinco_language', 'th');
+      globalThis.localStorage.setItem('zinco_language', 'th');
 
       const { result } = renderHook(() => useLanguage(), { wrapper });
 
@@ -75,7 +75,7 @@ describe('LanguageContext - TDD Tests', () => {
         result.current.setLanguage('th');
       });
 
-      expect(localStorage.getItem('zinco_language')).toBe('th');
+      expect(globalThis.localStorage.getItem('zinco_language')).toBe('th');
     });
 
     it('should handle switching between all supported languages', async () => {
@@ -155,7 +155,7 @@ describe('LanguageContext - TDD Tests', () => {
 
   describe('Edge Cases', () => {
     it('should handle corrupted localStorage data', async () => {
-      localStorage.setItem('zinco_language', 'invalid-language');
+      globalThis.localStorage.setItem('zinco_language', 'invalid-language');
 
       const { result } = renderHook(() => useLanguage(), { wrapper });
 
