@@ -58,7 +58,13 @@ export default function EnterPinPage() {
     const isValid = verifyPin(phoneNumber, pinCode);
     
     if (isValid) {
-      router.push('/products');
+      const redirectTo = sessionStorage.getItem('post_auth_redirect');
+      if (redirectTo) {
+        sessionStorage.removeItem('post_auth_redirect');
+        router.push(redirectTo);
+      } else {
+        router.push('/products');
+      }
     } else {
       setAttempts((prev) => prev + 1);
       setError('Incorrect PIN. Please try again.');

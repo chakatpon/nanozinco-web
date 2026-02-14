@@ -78,7 +78,13 @@ export default function SetPinPage() {
     }
 
     savePin(user.phone, originalPin);
-    router.push('/products');
+    const redirectTo = sessionStorage.getItem('post_auth_redirect');
+    if (redirectTo) {
+      sessionStorage.removeItem('post_auth_redirect');
+      router.push(redirectTo);
+    } else {
+      router.push('/products');
+    }
   };
 
   return (
@@ -157,7 +163,15 @@ export default function SetPinPage() {
 
         {/* Skip button */}
         <button
-          onClick={() => router.push('/')}
+          onClick={() => {
+            const redirectTo = sessionStorage.getItem('post_auth_redirect');
+            if (redirectTo) {
+              sessionStorage.removeItem('post_auth_redirect');
+              router.push(redirectTo);
+              return;
+            }
+            router.push('/');
+          }}
           className="w-full mt-4 py-2 text-gray-500 hover:text-gray-700 font-medium"
         >
           Skip for now

@@ -1,0 +1,8 @@
+Add the following assets here:
+- nanozinco_product_4.png
+- pngtree-special-promo-red-label.png
+- app-store.png
+- google_play_logo.webp
+- facebook_logo.webp
+- line_logo.webp
+- tiktok-icon.png

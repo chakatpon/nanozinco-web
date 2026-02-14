@@ -19,13 +19,13 @@ export default function CartPage() {
     );
   }
 
-  if (!isAuthenticated) {
-    router.push('/login');
-    return null;
-  }
-
   const handleCheckout = () => {
     if (items.length === 0) return;
+    if (!isAuthenticated) {
+      sessionStorage.setItem('post_auth_redirect', '/cart');
+      router.push('/login');
+      return;
+    }
     router.push('/checkout');
   };
 
@@ -147,6 +147,12 @@ export default function CartPage() {
               >
                 {t('cart.checkout')}
               </button>
+
+              {!isAuthenticated && (
+                <p className="mt-3 text-sm text-gray-500 text-center">
+                  ต้องยืนยัน OTP ก่อนชำระเงิน
+                </p>
+              )}
 
               <button
                 onClick={clearCart}

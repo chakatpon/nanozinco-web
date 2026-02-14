@@ -10,19 +10,13 @@ import { products as mockProducts } from '@/constants/products';
 
 export default function ProductsPage() {
   const router = useRouter();
-  const { isAuthenticated, isLoading, logout, user } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
   const { addToCart, getTotalItems } = useCart();
   const { t, language, setLanguage } = useLanguage();
   
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddedMessage, setShowAddedMessage] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login');
-    }
-  }, [isAuthenticated, isLoading, router]);
 
   useEffect(() => {
     setProducts(mockProducts);
@@ -38,14 +32,6 @@ export default function ProductsPage() {
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>{t('common.loading')}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -87,13 +73,23 @@ export default function ProductsPage() {
                 )}
               </button>
 
-              {/* Profile Button */}
-              <button
-                onClick={() => router.push('/profile')}
-                className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold"
-              >
-                {user?.name?.[0]?.toUpperCase() || 'U'}
-              </button>
+              {/* Profile/Login Button */}
+              {isAuthenticated ? (
+                <button
+                  onClick={() => router.push('/profile')}
+                  className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold"
+                >
+                  {user?.name?.[0]?.toUpperCase() || 'U'}
+                </button>
+              ) : (
+                <button
+                  onClick={() => router.push('/login')}
+                  disabled={isLoading}
+                  className="px-3 py-1 rounded-md text-sm font-semibold border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition disabled:opacity-60"
+                >
+                  เข้าสู่ระบบ
+                </button>
+              )}
             </div>
           </div>
 
